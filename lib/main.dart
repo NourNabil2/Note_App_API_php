@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/login.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+import 'DioHelper.dart';
 import 'component.dart';
 import 'homeScreen.dart';
-
-void main() {
+late SharedPreferences share ;
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized() ;
+  share = await SharedPreferences.getInstance();
   runApp(const MyApp());
 }
 
@@ -65,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return MaterialApp(
 
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
+      initialRoute: share.getString('id')==null ? '/' : 'home',
       routes: {
         '/': (context) =>  LoginScreen(),
         'home' : (context) => home(),

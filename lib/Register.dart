@@ -1,22 +1,38 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'package:note_app/homeScreen.dart';
 import 'package:note_app/login.dart';
 
 import 'HttpHelper.dart';
 import 'component.dart';
 import 'links.dart';
+import 'main.dart';
 
-class Register extends StatelessWidget {
+class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
+  @override
+  State<Register> createState() => _RegisterState();
+}
 
+class _RegisterState extends State<Register> {
+@override
+
+  void initState() {
+    // TODO: implement initState
+    key;
+    super.initState();
+  }
+ GlobalKey<FormState> key = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     Http http = Http();
-    var key = GlobalKey<FormState>();
-    var email = TextEditingController();
-    var username = TextEditingController();
-    var passsword = TextEditingController();
+
+    final email = TextEditingController();
+    final username = TextEditingController();
+    final passsword = TextEditingController();
+
     signup() async {
      var response = await http.postdata(sign,
       {
@@ -47,7 +63,7 @@ class Register extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    defaultFormField(controller: username , type: TextInputType.text, lable: 'UserName', icon: Icons.person_outline_outlined, onChange: null, onFieldSubmitted: null, valid: (value)
+                    defaultFormField(controller: username , type: TextInputType.text, lable: 'UserName', icon: Icons.person_outline_outlined, valid: (value)
                     {
                       if (value.isEmpty)
                       {
@@ -69,8 +85,12 @@ class Register extends StatelessWidget {
                     {
                       if (value.isEmpty)
                       {
-                        return ('Email must not be empty !!');
+                        return ('Password must not be empty !!');
                       }
+                      else if (passsword.text.length < 8 )
+                        {
+                          return 'at least 8 characters';
+                        }
                       return null;
                     },),
                     SizedBox(height: 15,),
@@ -81,7 +101,7 @@ if (key.currentState!.validate())
   }
 
 
-                      }, child: Text('Sign Up',style: TextStyle(color: Colors.white,),),style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.purple)),),
+                      }, child: Text('Sign Up',style: TextStyle(color: Colors.white,),),style: ButtonStyle(fixedSize: MaterialStatePropertyAll(Size(700, 20)),backgroundColor: MaterialStatePropertyAll(Colors.purple)),),
                     SizedBox(height: 20,),
                     Row(crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,

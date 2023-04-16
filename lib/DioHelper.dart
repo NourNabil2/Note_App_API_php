@@ -6,7 +6,7 @@ class DioHelper {
   static init() {
     dio = Dio(
         BaseOptions(
-          baseUrl: 'https://student.valuxapps.com/api/',
+          baseUrl: 'http://10.0.2.2/NoteApp/',
           receiveDataWhenStatusError: true,
           // receiveTimeout: Duration(seconds: 5),
         ));

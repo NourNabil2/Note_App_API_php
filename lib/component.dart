@@ -9,8 +9,8 @@ Widget defaultFormField (
       required TextInputType type ,
       required String lable,
       required IconData icon ,
-      required onChange,
-      required onFieldSubmitted ,
+      onChange,
+      onFieldSubmitted ,
       required  valid ,
       IconData? icon2,
       press,
@@ -41,6 +41,7 @@ Widget defaultFormField (
     onFieldSubmitted: onFieldSubmitted ,
 
     onChanged: onChange ,
+
 
     onTap: ontap ,
 

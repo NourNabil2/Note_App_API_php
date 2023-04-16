@@ -1,22 +1,34 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:note_app/main.dart';
 import 'HttpHelper.dart';
 import 'Register.dart';
 import 'component.dart';
 import 'homeScreen.dart';
 import 'links.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
 
+class _LoginScreenState extends State<LoginScreen> {
+  @override
+  void initState() {
+    key;
+    // TODO: implement initState
+    super.initState();
+  }
+  static var key = GlobalKey<FormState>();
+  @override
   Widget build(BuildContext context) {
     Http http = Http();
-    var key = GlobalKey<FormState>();
-    var email = TextEditingController();
-    var passsword = TextEditingController();
+
+    final TextEditingController email = new TextEditingController();
+    final TextEditingController passsword = new TextEditingController();
     Login() async {
       var response = await http.postdata(login,
           {
@@ -25,11 +37,13 @@ class LoginScreen extends StatelessWidget {
           });
       if (response['status']=='success')
       {
+        share.setString('id', response['data']['id'].toString());
+            
         Navigator.of(context).pushAndRemoveUntil( MaterialPageRoute(builder: (context) => home(),), (route) => false);
       }
       else
         {
-          AwesomeDialog(context: context ,title: "wrong Password or Emain" ,body: Text('please cheack the email and password') ) ;
+          print('nooooo');
         }
 
 
@@ -47,7 +61,7 @@ class LoginScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-                defaultFormField(controller: email , type: TextInputType.emailAddress, lable: 'Email', icon: Icons.email_outlined, onChange: null, onFieldSubmitted: null, valid: (value)
+                defaultFormField(controller: email ,ontap: () => FocusScope.of(context).hasPrimaryFocus, type: TextInputType.emailAddress, lable: 'Email', icon: Icons.email_outlined, valid: (value)
                 {
                   if (value.isEmpty)
                   {
@@ -72,7 +86,7 @@ class LoginScreen extends StatelessWidget {
                 }
 
 
-              }, child: Text('LOGIN',style: TextStyle(color: Colors.white,),),style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.purple)),),
+              }, child: Text('LOGIN',style: TextStyle(color: Colors.white,),),style: ButtonStyle(fixedSize: MaterialStatePropertyAll(Size(700, 20)),backgroundColor: MaterialStatePropertyAll(Colors.purple)),),
 
               SizedBox(height: 15,),
 

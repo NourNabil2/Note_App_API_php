@@ -23,7 +23,8 @@ class Http {
   postdata(String URL, Map data) async
   {
     try{
-      var response = await post(Uri.parse(URL), body: data ) ;
+      var response = await post(Uri.parse(URL), body: data ,headers: {"Access-Control-Allow-Origin": "*",}
+      ) ;
       if (response.statusCode == 200)
       {
         var body = jsonDecode(response.body);
