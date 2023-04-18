@@ -1,15 +1,60 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
+import 'package:note_app/AddNote.dart';
+import 'package:note_app/HttpHelper.dart';
+import 'package:note_app/component.dart';
+import 'package:note_app/main.dart';
 
 import 'NoteScreen.dart';
+import 'links.dart';
 
-class home extends StatelessWidget {
+class home extends StatefulWidget {
   const home({Key? key}) : super(key: key);
 
   @override
+  State<home> createState() => _homeState();
+}
+
+class _homeState extends State<home> {
+
+  
+  void initState() {
+    sk;
+    key;
+    showbottom;
+    title;
+    contact;
+    // TODO: implement initState
+    super.initState();
+  }
+  static var sk = GlobalKey<ScaffoldState>();
+ static var key = GlobalKey<FormState>();
+  TextEditingController title = TextEditingController();
+  TextEditingController contact =  TextEditingController();
+  bool showbottom = true;
+  @override
+
   Widget build(BuildContext context) {
+    Http http = Http();
+
+
     final _advancedDrawerController = AdvancedDrawerController();
+
+    AddNote() async
+    {
+        var response = await http.postdata(add, {
+          'note_title': title.text,
+          'note_content': contact.text,
+          'note_users': share.getString('id'),
+        });
+        if (response['status'] == 'success') {
+          print('object');
+          print('${title.text}');
+        }
+
+    }
     void _handleMenuButtonPressed() {
       // NOTICE: Manage Advanced Drawer state through the Controller.
       // _advancedDrawerController.value = AdvancedDrawerValue.visible();
@@ -64,7 +109,9 @@ class home extends StatelessWidget {
                 title: Text('All note'),
               ),
               ListTile(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(context,MaterialPageRoute(builder: (context) => Add_Note(),));
+                },
                 leading: Icon(Icons.add),
                 title: Text('Add note'),
               ),
@@ -87,6 +134,7 @@ class home extends StatelessWidget {
       ),
     ),
     child:  Scaffold(
+      key: sk,
       body: Notes(),
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -111,11 +159,64 @@ class home extends StatelessWidget {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton(onPressed: () {  },backgroundColor: Colors.grey,child: Icon(CupertinoIcons.add)),
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        if(showbottom)
+        {
+          sk.currentState?.showBottomSheet((context) => Container(color: Colors.black12, padding: EdgeInsets.all(20.0),
+              child: Form(
+                key: key,
+                child: Column(
+                  mainAxisSize:MainAxisSize.min,
+                  children: [
+                   defaultFormField(controller: title, type: TextInputType.text, lable: 'Title', icon: Icons.title, valid: (value){
+                     if (value.isEmpty)
+                     {
+                       return ('Title must not be empty !!');
+                     }
+                     return null;
+                   },),
+                   SizedBox(height: 15,),
+                   defaultFormField(controller: contact, type: TextInputType.text, lable: 'Your Note', icon: Icons.note_add, valid:  (value){
+                     if (value.isEmpty)
+                     {
+                       return ('Note must not be empty !!');
+                     }
+                     return null;
+                   },),
+                  ],
+                ),
+              ),
+          )).closed.then((value) {
+setState(() {
+  showbottom=true;
+});
+            }  );
+
+setState(() {
+  showbottom = false ;
+});
+
+        }
+        else {
+
+          if (key.currentState!.validate()){
+            setState(() {
+              AddNote();
+              showbottom = true ;
+            });
+
+            print('${title.text}');
+            Navigator.pop(context);
+            title.clear();
+            contact.clear();
+
+          }
+        }
+       },backgroundColor: Colors.grey,child: Icon(CupertinoIcons.add)),
+
     ),);
 
 
 
   }
-
 }
