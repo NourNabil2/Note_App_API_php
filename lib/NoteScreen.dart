@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'EditNote.dart';
 import 'HttpHelper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -54,21 +55,25 @@ return ListView.separated(
   itemCount:  snapshot.data['data'].length,
   itemBuilder: (context, index) {
     return MaterialButton(
-      onPressed: () { },
+      onPressed: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => Edit_node(note:snapshot.data['data'][index] ),));
+      },
       child: Container(
         decoration: BoxDecoration(color: colors[random.nextInt(3)],borderRadius: BorderRadius.circular(10)),
         padding: EdgeInsets.all(18),
 
         child: Row(children: [Text('data'),
           SizedBox(width: 15,),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('${snapshot.data['data'][index]['note_title']}',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold )),
-              Text('${snapshot.data['data'][index]['note_content']}', style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold ),overflow: TextOverflow.ellipsis,maxLines: 1,textAlign: TextAlign.center,),
-            ]
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('${snapshot.data['data'][index]['note_title']}',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold )),
+                Text('${snapshot.data['data'][index]['note_content']}', style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,overflow: TextOverflow.ellipsis,),maxLines: 2,textAlign: TextAlign.center,),
+              ]
 
-            ,)
+              ,),
+          )
         ]
         ),
       ),

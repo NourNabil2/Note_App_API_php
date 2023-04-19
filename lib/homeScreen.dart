@@ -168,6 +168,7 @@ class _homeState extends State<home> {
                 child: Column(
                   mainAxisSize:MainAxisSize.min,
                   children: [
+
                    defaultFormField(controller: title, type: TextInputType.text, lable: 'Title', icon: Icons.title, valid: (value){
                      if (value.isEmpty)
                      {

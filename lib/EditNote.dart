@@ -1,43 +1,46 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:note_app/HttpHelper.dart';
-import 'package:note_app/homeScreen.dart';
 
 import 'component.dart';
 import 'links.dart';
-import 'main.dart';
 
-class Add_Note extends StatefulWidget {
-  const Add_Note({Key? key}) : super(key: key);
+class Edit_node extends StatefulWidget {
+  final note;
+  const Edit_node({Key? key,this.note}) : super(key: key);
 
   @override
-  State<Add_Note> createState() => _AddNoteState();
+  State<Edit_node> createState() => _Edit_nodeState();
 }
 
-class _AddNoteState extends State<Add_Note> with Http{
+class _Edit_nodeState extends State<Edit_node> with Http {
+
+  static var key2 = GlobalKey<FormState>() ;
+  final TextEditingController title = TextEditingController();
+  final TextEditingController contact =  TextEditingController();
+  EditNote() async
+  {
+    var response = await postdata(edit, {
+      'note_title': title.text,
+      'note_content': contact.text,
+      'note_id': widget.note['note_id'].toString(),
+    });
+    if (response['status'] == 'success') {
+      print('object');
+      print('${title.text}');
+    }
+
+  }
   void initState() {
+    title.text = widget.note['note_title'];
+    contact.text = widget.note['note_content'];
     key2;
     // TODO: implement initState
     super.initState();
   }
-  static var key2 = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    final TextEditingController title = TextEditingController();
-    final TextEditingController contact =  TextEditingController();
-    AddNote() async
-    {
-      var response = await postdata(add, {
-        'note_title': title.text,
-        'note_content': contact.text,
-        'note_users': share.getString('id'),
-      });
-      if (response['status'] == 'success') {
-        print('object');
-        print('${title.text}');
-      }
 
-    }
     return Scaffold(
       body:  Form(
         key: key2,
@@ -64,11 +67,11 @@ class _AddNoteState extends State<Add_Note> with Http{
               },),
               TextButton(onPressed: (){
                 if (key2.currentState!.validate())
-                  {
-                    AddNote();
-                  }
+                {
+                  EditNote();
+                }
 
-                }, child: Text('Add Note',style: TextStyle(color: Colors.purple,backgroundColor: Colors.transparent),),style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.transparent)),)
+              }, child: Text('Edit',style: TextStyle(color: Colors.purple,backgroundColor: Colors.transparent),),style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.transparent)),)
             ],
           ),
         ),
