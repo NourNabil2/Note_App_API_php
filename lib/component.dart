@@ -59,8 +59,8 @@ Widget defaultFormField (
       prefixIcon: Icon( icon ,  color: Colors.black,) ,
       hintText: lable,
       border: OutlineInputBorder(),
-      isDense: true,                      // Added this
-      contentPadding: EdgeInsets.all(8),
+      //isDense: true,                      // Added this
+      //contentPadding: EdgeInsets.all(8),
     ) ,
 
 
@@ -121,10 +121,10 @@ Widget defaultFormField2 (
 
     InputDecoration(
 filled: true,
-      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.deepPurple , width: 1.5)),
-      prefixIcon: Icon( icon ,  color: Colors.black,) ,
+      focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
+     // prefixIcon: Icon( icon ,  color: Colors.black,) ,
       hintText: lable,
-      border: OutlineInputBorder(),
+      //border: OutlineInputBorder(),
      // isDense: true,                      // Added this
       //contentPadding: EdgeInsets.all(8),
     ) ,

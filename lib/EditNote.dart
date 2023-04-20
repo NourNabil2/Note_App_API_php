@@ -42,6 +42,7 @@ class _Edit_nodeState extends State<Edit_node> with Http {
   Widget build(BuildContext context) {
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body:  Form(
         key: key2,
         child: Padding(

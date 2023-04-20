@@ -1,23 +1,21 @@
 import 'dart:math';
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:note_app/homeScreen.dart';
 import 'EditNote.dart';
 import 'HttpHelper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
-
-import 'package:http/http.dart';
-
 import 'links.dart';
 import 'main.dart';
 
 class Notes extends StatefulWidget {
   const Notes({Key? key}) : super(key: key);
-
   @override
   State<Notes> createState() => _NotesState();
 }
 
 class _NotesState extends State<Notes> {
+
   Http http = Http();
   getAllNote() async
   {
@@ -26,6 +24,16 @@ class _NotesState extends State<Notes> {
     });
     return respone;
   }
+
+  void initState()
+  {
+
+     Notes s = Notes();
+    super.initState();
+  }
+
+@override
+
   @override
   Widget build(BuildContext context) {
     List colors = [Colors.grey[700], Colors.teal, Colors.blueGrey];
@@ -47,7 +55,7 @@ class _NotesState extends State<Notes> {
                 ],
               );
             }
-return ListView.separated(
+return  ListView.separated(
 
   physics: BouncingScrollPhysics(),
   shrinkWrap: true,
@@ -55,6 +63,22 @@ return ListView.separated(
   itemCount:  snapshot.data['data'].length,
   itemBuilder: (context, index) {
     return MaterialButton(
+      onLongPress: (){
+        AwesomeDialog(
+            context: context,
+            dialogType: DialogType.warning,
+            animType: AnimType.scale,
+            title: 'Delete Note',
+            desc: 'You will Delete this Note',
+            btnCancelOnPress: () {},
+            btnOkOnPress: () async {
+                await http.postdata(Delete, {
+                  'id' :  snapshot.data['data'][index]['note_id'].toString(),
+                });
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => home(),));
+            },
+        )..show();
+      },
       onPressed: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) => Edit_node(note:snapshot.data['data'][index] ),));
       },
@@ -62,13 +86,15 @@ return ListView.separated(
         decoration: BoxDecoration(color: colors[random.nextInt(3)],borderRadius: BorderRadius.circular(10)),
         padding: EdgeInsets.all(18),
 
-        child: Row(children: [Text('data'),
+        child: Row(children: [Text('NOTE $index'),
           SizedBox(width: 15,),
           Expanded(
+
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('${snapshot.data['data'][index]['note_title']}',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold )),
+
+                Text('${snapshot.data['data'][index]['note_title']}',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold ,overflow: TextOverflow.ellipsis,),maxLines: 1,),
                 Text('${snapshot.data['data'][index]['note_content']}', style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,overflow: TextOverflow.ellipsis,),maxLines: 2,textAlign: TextAlign.center,),
               ]
 
