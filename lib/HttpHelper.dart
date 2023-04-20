@@ -1,5 +1,7 @@
 import 'dart:convert';
-import 'package:http/http.dart';
+import 'dart:io';
+import 'package:http/http.dart'  ;
+import 'package:path/path.dart';
 class Http {
 
   getdata(String URL) async
@@ -23,7 +25,7 @@ class Http {
   postdata(String URL, Map data) async
   {
     try{
-      var response = await post(Uri.parse(URL), body: data ,headers: {"Access-Control-Allow-Origin": "*",}
+      var response = await post(Uri.parse(URL), body: data
       ) ;
       if (response.statusCode == 200)
       {
@@ -36,5 +38,41 @@ class Http {
     catch(e){
       print('erorr!!! ${e}');
     }
+  }
+
+
+
+  postFile(String URL, Map data , File file) async
+  {
+    var req = MultipartRequest('POST',Uri.parse(URL));
+    int length = await file.length()  ;
+    var stream = ByteStream(file.openRead());
+    var multyfile = MultipartFile('file',stream,length,filename: basename(file.path) );
+    req.files.add(multyfile);
+
+
+    data.forEach((key, value)
+
+    {
+      req.fields[key]=value;
+    }
+
+    );
+
+
+    var myrequest = await req.send();
+    var respone = await Response.fromStream(myrequest);
+
+    if (myrequest.statusCode == 200)
+      {
+return jsonDecode(respone.body);
+      }
+    else
+      {
+      print('erorr request!!!!');
+  }
+
+
+
   }
 }

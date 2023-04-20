@@ -48,6 +48,7 @@ class _homeState extends State<home> {
           'note_title': title.text,
           'note_content': contact.text,
           'note_users': share.getString('id'),
+          'file' : '',
         });
         if (response['status'] == 'success') {
           print('object');

@@ -40,6 +40,8 @@ dependencies:
   awesome_dialog:
   shared_preferences:
   flutter_advanced_drawer:
+  image_picker:
+  xfile:
 
 dev_dependencies:
   flutter_test:

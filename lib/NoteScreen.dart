@@ -86,7 +86,13 @@ return  ListView.separated(
         decoration: BoxDecoration(color: colors[random.nextInt(3)],borderRadius: BorderRadius.circular(10)),
         padding: EdgeInsets.all(18),
 
-        child: Row(children: [Text('NOTE $index'),
+        child:
+        Row(children:
+        [
+         // if (snapshot.data['data'][index]['note_image'] != null)Image.network('$Upload/${snapshot.data['data'][index]['note_image']}' ,width: 50),
+
+         // if (snapshot.data['data'][index]['note_image'] == null)
+          Text('NOTE $index'),
           SizedBox(width: 15,),
           Expanded(
 
