@@ -74,6 +74,7 @@ return  ListView.separated(
             btnOkOnPress: () async {
                 await http.postdata(Delete, {
                   'id' :  snapshot.data['data'][index]['note_id'].toString(),
+                    'imagename' :snapshot.data['data'][index]['note_image'],
                 });
                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => home(),));
             },
@@ -89,10 +90,9 @@ return  ListView.separated(
         child:
         Row(children:
         [
-         // if (snapshot.data['data'][index]['note_image'] != null)Image.network('$Upload/${snapshot.data['data'][index]['note_image']}' ,width: 50),
+         if (snapshot.data['data'][index]['note_image'] != '')Image.network('$Upload/${snapshot.data['data'][index]['note_image']}' ,width: 50),
+          if (snapshot.data['data'][index]['note_image'] == '')Text('NOTE $index'),
 
-         // if (snapshot.data['data'][index]['note_image'] == null)
-          Text('NOTE $index'),
           SizedBox(width: 15,),
           Expanded(
 

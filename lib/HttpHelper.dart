@@ -2,12 +2,23 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart'  ;
 import 'package:path/path.dart';
+
+
+String _basicAuth = 'Basic ' +
+    base64Encode(utf8.encode(
+        'Nour:Nour123456789'));
+
+Map<String, String> myheaders = {
+  'authorization': _basicAuth
+};
+
+
 class Http {
 
   getdata(String URL) async
   {
     try{
-      var response = await get(Uri.parse(URL)) ;
+      var response = await get(Uri.parse(URL),headers: myheaders ,) ;
       if (response.statusCode == 200)
         {
           var body = jsonDecode(response.body);
@@ -25,7 +36,7 @@ class Http {
   postdata(String URL, Map data) async
   {
     try{
-      var response = await post(Uri.parse(URL), body: data
+      var response = await post(Uri.parse(URL), headers: myheaders ,body: data
       ) ;
       if (response.statusCode == 200)
       {
@@ -49,7 +60,7 @@ class Http {
     var stream = ByteStream(file.openRead());
     var multyfile = MultipartFile('file',stream,length,filename: basename(file.path) );
     req.files.add(multyfile);
-
+    req.headers.addAll(myheaders);
 
     data.forEach((key, value)
 

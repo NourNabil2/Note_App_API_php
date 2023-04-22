@@ -9,6 +9,7 @@ import 'package:note_app/main.dart';
 
 import 'NoteScreen.dart';
 import 'links.dart';
+import 'login.dart';
 
 class home extends StatefulWidget {
   const home({Key? key}) : super(key: key);
@@ -115,6 +116,18 @@ class _homeState extends State<home> {
                 },
                 leading: Icon(Icons.add),
                 title: Text('Add note'),
+              ),
+              ListTile(
+                onTap: () {
+                  share.clear();
+                  Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => LoginScreen(),));
+
+                },
+                leading: Icon(Icons.exit_to_app),
+                style:ListTileStyle.list ,
+                iconColor: Colors.red[800],
+                textColor: Colors.red[900],
+                title: Text('Log Out'),
               ),
               Spacer(),
               DefaultTextStyle(

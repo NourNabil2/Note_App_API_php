@@ -63,6 +63,8 @@ class _RegisterState extends State<Register> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    Image.asset('images/register.jpg'),
+                    SizedBox(height: 15,),
                     defaultFormField(controller: username , type: TextInputType.text, lable: 'UserName', icon: Icons.person_outline_outlined, valid: (value)
                     {
                       if (value.isEmpty)
@@ -81,7 +83,7 @@ class _RegisterState extends State<Register> {
                       return null;
                     },),
                     SizedBox(height: 15,),
-                    defaultFormField(controller: passsword , type: TextInputType.emailAddress, lable: 'Email', icon: Icons.remove_red_eye, onChange: null, onFieldSubmitted: null, valid: (value)
+                    defaultFormField(controller: passsword , type: TextInputType.emailAddress, lable: 'Password', icon: Icons.remove_red_eye, onChange: null, onFieldSubmitted: null, valid: (value)
                     {
                       if (value.isEmpty)
                       {

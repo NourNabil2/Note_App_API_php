@@ -68,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return MaterialApp(
 
       debugShowCheckedModeBanner: false,
-      initialRoute: share.getString('id')==null ? '/' : 'home',
+      initialRoute: share.getString('id')== null ? '/' : 'home',
       routes: {
         '/': (context) =>  LoginScreen(),
         'home' : (context) => home(),

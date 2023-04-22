@@ -43,8 +43,14 @@ class _LoginScreenState extends State<LoginScreen> {
       }
       else
         {
-          print('nooooo');
-        }
+          AwesomeDialog(
+            context: context,
+            dialogType: DialogType.error,
+            animType: AnimType.scale,
+            title: 'invalid data',
+            desc: 'Make sure that Email and Password correct',
+            btnOkOnPress: (){},
+          )..show();   }
 
 
     }
@@ -61,6 +67,8 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              Image.asset('images/Login.jpg'),
+              SizedBox(height: 15,),
                 defaultFormField(controller: email ,ontap: () => FocusScope.of(context).hasPrimaryFocus, type: TextInputType.emailAddress, lable: 'Email', icon: Icons.email_outlined, valid: (value)
                 {
                   if (value.isEmpty)
@@ -70,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   return null;
                 },),
                 SizedBox(height: 15,),
-                defaultFormField(controller: passsword , type: TextInputType.emailAddress, lable: 'Email', icon: Icons.remove_red_eye, onChange: null, onFieldSubmitted: null, valid: (value)
+                defaultFormField(controller: passsword , type: TextInputType.emailAddress, lable: 'Password', icon: Icons.remove_red_eye, valid: (value)
                 {
                   if (value.isEmpty)
                   {
