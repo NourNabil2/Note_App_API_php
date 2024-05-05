@@ -13,14 +13,14 @@ class Edit_node extends StatefulWidget {
   State<Edit_node> createState() => _Edit_nodeState();
 }
 
-class _Edit_nodeState extends State<Edit_node> with Http {
+class _Edit_nodeState extends State<Edit_node> {
 
   static var key2 = GlobalKey<FormState>() ;
   final TextEditingController title = TextEditingController();
   final TextEditingController contact =  TextEditingController();
   EditNote() async
   {
-    var response = await postdata(edit, {
+    var response = await Http.postdata(edit, {
       'note_title': title.text,
       'note_content': contact.text,
       'note_id': widget.note['note_id'].toString(),

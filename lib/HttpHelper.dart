@@ -15,7 +15,7 @@ Map<String, String> myheaders = {
 
 class Http {
 
-  getdata(String URL) async
+  static getdata(String URL) async
   {
     try{
       var response = await get(Uri.parse(URL),headers: myheaders ,) ;
@@ -33,7 +33,7 @@ class Http {
   }
 
 
-  postdata(String URL, Map data) async
+  static postdata(String URL, Map data) async
   {
     try{
       var response = await post(Uri.parse(URL), headers: myheaders ,body: data
@@ -53,7 +53,7 @@ class Http {
 
 
 
-  postFile(String URL, Map data , File file) async
+  static postFile(String URL, Map data , File file) async
   {
     var req = MultipartRequest('POST',Uri.parse(URL));
     int length = await file.length()  ;
@@ -63,14 +63,11 @@ class Http {
     req.headers.addAll(myheaders);
 
     data.forEach((key, value)
-
     {
       req.fields[key]=value;
     }
 
     );
-
-
     var myrequest = await req.send();
     var respone = await Response.fromStream(myrequest);
 
@@ -86,4 +83,6 @@ return jsonDecode(respone.body);
 
 
   }
+
+
 }

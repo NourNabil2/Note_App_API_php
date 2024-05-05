@@ -1,6 +1,7 @@
 import 'dart:math';
-import 'package:awesome_dialog/awesome_dialog.dart';
+import 'dart:ui';
 import 'package:note_app/homeScreen.dart';
+import 'package:on_popup_window_widget/on_popup_window_widget.dart';
 import 'EditNote.dart';
 import 'HttpHelper.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,10 +17,10 @@ class Notes extends StatefulWidget {
 
 class _NotesState extends State<Notes> {
 
-  Http http = Http();
+
   getAllNote() async
   {
-    var respone = await http.postdata(view, {
+    var respone = await Http.postdata(view, {
       'id' : share.getString('id'),
     });
     return respone;
@@ -62,23 +63,30 @@ return  ListView.separated(
   scrollDirection: Axis.vertical,
   itemCount:  snapshot.data['data'].length,
   itemBuilder: (context, index) {
-    return MaterialButton(
+    return TextButton(
       onLongPress: (){
-        AwesomeDialog(
+        showDialog(
             context: context,
-            dialogType: DialogType.warning,
-            animType: AnimType.scale,
-            title: 'Delete Note',
-            desc: 'You will Delete this Note',
-            btnCancelOnPress: () {},
-            btnOkOnPress: () async {
-                await http.postdata(Delete, {
-                  'id' :  snapshot.data['data'][index]['note_id'].toString(),
-                    'imagename' :snapshot.data['data'][index]['note_image'],
-                });
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => home(),));
-            },
-        )..show();
+             builder: (BuildContext context) => OnPopupWindowWidget(
+                 title: const Text("Do you want to delete this message!"),
+                 child:  Row(
+                   crossAxisAlignment: CrossAxisAlignment.center,
+                   mainAxisAlignment: MainAxisAlignment.center,
+                   children: [
+                     TextButton(onPressed: () async {
+                       await Http.postdata(Delete, {
+                         'id' :  snapshot.data['data'][index]['note_id'].toString(),
+                         'imagename' :snapshot.data['data'][index]['note_image'],
+                       });
+                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>const home(),));
+                     }, child: Text('delete')),
+                     TextButton(onPressed: () {
+                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>const home(),));
+                     }, child: Text('delete')),
+                   ],
+                 )
+                     ),
+        );
       },
       onPressed: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) => Edit_node(note:snapshot.data['data'][index] ),));
@@ -118,7 +126,7 @@ return  ListView.separated(
         {
           return Center(child: Text('Loading...'));
         }
-        return Center(child: Text('not working'));
+        return Center(child: Text('No Networke'));
       },
     );
 

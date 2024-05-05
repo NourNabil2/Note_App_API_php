@@ -38,14 +38,14 @@ class _homeState extends State<home> {
   @override
 
   Widget build(BuildContext context) {
-    Http http = Http();
+
 
 
     final _advancedDrawerController = AdvancedDrawerController();
 
     AddNote() async
     {
-        var response = await http.postdata(add, {
+        var response = await Http.postdata(add, {
           'note_title': title.text,
           'note_content': contact.text,
           'note_users': share.getString('id'),

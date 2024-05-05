@@ -8,7 +8,7 @@ import 'package:note_app/login.dart';
 import 'HttpHelper.dart';
 import 'component.dart';
 import 'links.dart';
-import 'main.dart';
+
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -34,7 +34,7 @@ class _RegisterState extends State<Register> {
     final passsword = TextEditingController();
 
     signup() async {
-     var response = await http.postdata(sign,
+     var response = await Http.postdata(sign,
       {
 
           'username':username.text,

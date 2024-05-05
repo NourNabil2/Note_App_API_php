@@ -1,4 +1,4 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:note_app/main.dart';
@@ -18,19 +18,19 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
-    key;
+    key1;
     // TODO: implement initState
     super.initState();
   }
-  static var key = GlobalKey<FormState>();
+  static var key1 = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    Http http = Http();
+
 
     final TextEditingController email = new TextEditingController();
     final TextEditingController passsword = new TextEditingController();
     Login() async {
-      var response = await http.postdata(login,
+      var response = await Http.postdata(login,
           {
             'email':email.text,
             'password':passsword.text,
@@ -43,14 +43,15 @@ class _LoginScreenState extends State<LoginScreen> {
       }
       else
         {
-          AwesomeDialog(
-            context: context,
-            dialogType: DialogType.error,
-            animType: AnimType.scale,
-            title: 'invalid data',
-            desc: 'Make sure that Email and Password correct',
-            btnOkOnPress: (){},
-          )..show();   }
+          // AwesomeDialog(
+          //   context: context,
+          //   dialogType: DialogType.error,
+          //   animType: AnimType.scale,
+          //   title: 'invalid data',
+          //   desc: 'Make sure that Email and Password correct',
+          //   btnOkOnPress: (){},
+          // ).show();
+        }
 
 
     }
@@ -60,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
         children: [
           Form(
-              key: key,
+              key: key1,
               child:   Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -77,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   }
                   return null;
                 },),
-                SizedBox(height: 15,),
+                const SizedBox(height: 15,),
                 defaultFormField(controller: passsword , type: TextInputType.emailAddress, lable: 'Password', icon: Icons.remove_red_eye, valid: (value)
                 {
                   if (value.isEmpty)
@@ -86,21 +87,21 @@ class _LoginScreenState extends State<LoginScreen> {
                   }
                   return null;
                 },),
-              SizedBox(height: 15,),
+              const SizedBox(height: 15,),
               TextButton(onPressed: ()async {
-                if (key.currentState!.validate())
+                if (key1.currentState!.validate())
                 {
                   await Login();
                 }
 
 
-              }, child: Text('LOGIN',style: TextStyle(color: Colors.white,),),style: ButtonStyle(fixedSize: MaterialStatePropertyAll(Size(700, 20)),backgroundColor: MaterialStatePropertyAll(Colors.purple)),),
+              }, child:const  Text('LOGIN',style: TextStyle(color: Colors.white,),),style: ButtonStyle(fixedSize: MaterialStatePropertyAll(Size(700, 20)),backgroundColor: MaterialStatePropertyAll(Colors.purple)),),
 
-              SizedBox(height: 15,),
+              const SizedBox(height: 15,),
 
               Row(crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [ Text('Don\'t have an account?'),
+                children: [ const Text('Don\'t have an account?'),
                 TextButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => Register(),));}, child: Text('REGISTER NOW',style: TextStyle(color: Colors.purple,backgroundColor: Colors.transparent),),style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.transparent)),)
               ],),
 

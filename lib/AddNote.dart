@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -16,7 +14,7 @@ class Add_Note extends StatefulWidget {
   State<Add_Note> createState() => _AddNoteState();
 }
 
-class _AddNoteState extends State<Add_Note> with Http{
+class _AddNoteState extends State<Add_Note>{
   void initState() {
     key2;
     k;
@@ -34,7 +32,7 @@ class _AddNoteState extends State<Add_Note> with Http{
     {
       // if (myfile == null )
       //   return AwesomeDialog(context: context ,title: 'no image')..show();
-      var response = await postFile(add, {
+      var response = await Http.postFile(add, {
         'note_title': title.text,
         'note_content': contact.text,
         'note_users': share.getString('id'),
@@ -85,7 +83,7 @@ class _AddNoteState extends State<Add_Note> with Http{
       children: [
         InkWell(
 
-      child: Text('add'),
+      child: Text('Open Camera'),
       onTap: () async {
         XFile? xf = await ImagePicker().pickImage(source: ImageSource.camera) ;
         myfile = File(xf!.path);
@@ -94,7 +92,7 @@ class _AddNoteState extends State<Add_Note> with Http{
         SizedBox(height: 20,),
         InkWell(
 
-      child: Container(child: Text('add g')),
+      child: Container(child: Text('import from galary')),
       onTap: () async {
         XFile? xf = await ImagePicker().pickImage(source: ImageSource.gallery) ;
         myfile = File(xf!.path);
