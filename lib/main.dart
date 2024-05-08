@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:note_app/login.dart';
+import 'package:note_app/Features/Auth_screens/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'DioHelper.dart';
-import 'component.dart';
-import 'homeScreen.dart';
+import 'Features/Home_Screen/homeScreen.dart';
 late SharedPreferences share ;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized() ;
