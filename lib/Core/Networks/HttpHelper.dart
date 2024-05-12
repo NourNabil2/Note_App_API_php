@@ -24,11 +24,11 @@ class Http {
           var body = jsonDecode(response.body);
           return body;
         }else{
-        print('erorr ${response.statusCode}');
+        print('error ${response.statusCode}');
       }
     }
     catch(e){
-      print('erorr ${e}');
+      print('error ${e}');
     }
   }
 
@@ -43,11 +43,11 @@ class Http {
         var body = jsonDecode(response.body);
         return body;
       }else{
-        print('erorr ${response.statusCode}');
+        print('error ${response.statusCode}');
       }
     }
     catch(e){
-      print('erorr!!! ${e}');
+      print('error!!! ${e}');
     }
   }
 

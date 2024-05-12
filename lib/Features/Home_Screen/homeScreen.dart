@@ -160,7 +160,9 @@ class _homeState extends State<home> {
             builder: (_, value, __) {
               return AnimatedSwitcher(
                 duration: Duration(milliseconds: 250),
-                child: Image.asset(Appimage.booknote),
+                child: Hero(
+                    tag: 'open',
+                    child: Image.asset(Appimage.opennote)),
               );
             },
           ),

@@ -1,10 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:note_app/Features/Auth_screens/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Features/Home_Screen/homeScreen.dart';
 late SharedPreferences share ;
 void main() async {
+
   WidgetsFlutterBinding.ensureInitialized() ;
+ // HttpOverrides.global = MyHttpOverrides();
   share = await SharedPreferences.getInstance();
   runApp(const MyApp());
 }
@@ -66,3 +70,11 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+// class MyHttpOverrides extends HttpOverrides{
+//   @override
+//   HttpClient createHttpClient(SecurityContext? context){
+//     return super.createHttpClient(context)
+//       ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+//   }
+// }

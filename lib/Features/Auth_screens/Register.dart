@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:note_app/Core/Utilts/colors.dart';
 import 'package:note_app/Core/Utilts/constant.dart';
 import 'package:note_app/Core/widgets/button.dart';
+import 'package:note_app/Core/widgets/snackbar.dart';
 
 import 'package:note_app/Features/Home_Screen/homeScreen.dart';
 import 'package:note_app/Features/Auth_screens/login.dart';
@@ -47,7 +48,12 @@ class _RegisterState extends State<Register> {
       });
      if (response['status']=='success')
        {
+         showSnackBar(context, 'Success create new user');
          Navigator.of(context).pushAndRemoveUntil( MaterialPageRoute(builder: (context) => home(),), (route) => false);
+       }
+     else
+       {
+         showSnackBar(context, 'error');
        }
 
 

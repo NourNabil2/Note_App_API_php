@@ -1,6 +1,6 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:note_app/Core/Utilts/colors.dart';
 import 'package:note_app/Core/Utilts/constant.dart';
 import 'package:note_app/Core/widgets/button.dart';
@@ -30,26 +30,29 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
 
-
-    final TextEditingController email = new TextEditingController();
-    final TextEditingController passsword = new TextEditingController();
+    bool isloading = false ;
+    final TextEditingController email = TextEditingController();
+    final TextEditingController password = TextEditingController();
     Login() async {
-      var response = await Http.postdata(login,
-          {
+     var response = await Http.postdata(
+        login,
+        {
             'email':email.text,
-            'password':passsword.text,
-          });
+            'password':password.text,
+          }
+          );
       if (response['status']=='success')
       {
+        isloading = false ;
+        showSnackBar(context, 'Wellcome Back');
         share.setString('id', response['data']['id'].toString());
-            
-        Navigator.of(context).pushAndRemoveUntil( MaterialPageRoute(builder: (context) => home(),), (route) => false);
+        Navigator.of(context).pushAndRemoveUntil( PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) => home(),transitionDuration: Duration(seconds: 2),), (route) => false);
       }
       else
         {
+          isloading = false ;
           showSnackBar(context, 'password or email is incorrect');
         }
-
     }
     return Scaffold(
 backgroundColor: ColorApp.background ,
@@ -64,18 +67,23 @@ backgroundColor: ColorApp.background ,
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.asset(Appimage.booknote),
+              Hero(
+                  tag: 'open',
+                  child: Image.asset(Appimage.booknote)),
               Text('Note Saver', style: TextStyle(fontSize: 26,fontWeight: FontWeight.bold),),
               SizedBox(height: 30,),
               CustomFormTextField(controller: email,onChanged : (p0) => FocusScope.of(context).hasPrimaryFocus,  hintText: 'Email',),
                 const SizedBox(height: 15,),
-              CustomFormTextField(controller: passsword , hintText: 'Password', obscureText: true,),
+              CustomFormTextField(controller: password , hintText: 'Password', obscureText: true,),
               const SizedBox(height: 15,),
-              Button(
-                  onpress:  ()async {
+              isloading ? const CircularProgressIndicator(color: ColorApp.ButtonColor,):Button(
+                  onpress:  () {
                 if (key1.currentState!.validate())
                 {
-                  await Login();
+
+                    Login();
+
+
                 }
               },
                   text: 'LOGIN',

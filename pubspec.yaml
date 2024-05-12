@@ -40,8 +40,6 @@ dependencies:
   shared_preferences:
   flutter_advanced_drawer:
   image_picker:
-  rive: ^0.9.1
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -69,7 +69,7 @@ Widget defaultFormField (
 
   child:   TextFormField(
 
-    maxLines: null,
+    maxLines: 1,
 
 
     autofocus: autofocus ,

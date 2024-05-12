@@ -72,7 +72,7 @@ class _Edit_nodeState extends State<Edit_node> {
                   EditNote();
                 }
 
-              }, child: Text('Edit',style: TextStyle(color: Colors.purple,backgroundColor: Colors.transparent),),style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.transparent)),)
+              },style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.transparent)), child: const Text('Edit',style: TextStyle(color: Colors.purple,backgroundColor: Colors.transparent),),)
             ],
           ),
         ),

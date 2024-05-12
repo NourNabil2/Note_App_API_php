@@ -49,7 +49,7 @@ class _NotesState extends State<Notes> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Center(child: Image(image: AssetImage('images/empty.gif'),width: 300, )),
+                  Center(child: Image(image: AssetImage('images/empty.gif'),width: 200, )),
                   Text('No Notes Yet',style: TextStyle(fontWeight: FontWeight.bold)),
                 ],
               );
